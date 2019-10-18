@@ -1,0 +1,150 @@
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <style>
+        @import url(http://fonts.googleapis.com/css?family=Lato:400,900);
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+    
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <nav style="position:relative; box-shadow: 0 1px 3px rgba(0,0,0,.1); " class="white lighten-1" role="navigation">
+        <div class="nav-wrapper container"><a style="color: #26a69a" id="logo-container" href="https://quire.io/att/Ta/BGauVIuMD5q31Uo3stzgFWA3/rztto8v6/index.html#" class="brand-logo">Escalonador EDF</a>
+        </div>
+        <a onclick="$(&#39;#addProcesso&#39;).toggle(&#39;slow&#39;, function() {
+    // Animation complete.
+  })" style="    position: fixed;
+    top: 4%;
+    right: 15%;
+    z-index: 99999;" class="btn-floating btn-large halfway-fab waves-effect waves-light teal">
+            <i class="material-icons">add</i>
+        </a>
+    </nav>
+
+    <div class="container">
+
+        <form id="addProcesso" class="col s12">
+            <div style="margin-bottom:0" class="row">
+                <div class="input-field col s6">
+                    <input id="processo" type="text" class="validate" length="10">
+                    <label for="processo">Processo</label>
+                    <span class="character-counter" style="float: right; font-size: 12px; height: 1px;"></span></div>
+                <div class="input-field col s6">
+                    <input id="tempoExecucao" type="number" class="validate">
+                    <label for="tempoExecucao">Tempo de Execução *</label>
+                </div>
+            </div>
+            <div style="margin-top:0" class="row">
+                <div class="input-field col s6">
+                    <input id="deadline" type="number" class="validate" length="10">
+                    <label for="deadline">Deadline *</label>
+                    <span class="character-counter" style="float: right; font-size: 12px; height: 1px;"></span></div>
+                <div class="input-field col s6">
+                    <input id="periodo" type="number" class="validate">
+                    <label for="periodo">Período *</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="btn waves-effect waves-light waves-input-wrapper" style="padding:0;background: #26a69a; width: 100%"><input value="Adicionar Processo" type="submit" style="
+    width: 100%;
+    height: 100%;
+" class="waves-button-input"></i>
+                </div>
+				<br>
+				<br>
+                <h5>Configurações</h5>
+                <div id="configs">
+                	<div class="col s6">
+						<label>
+							<input type="checkbox" name="timeline" class="filled-in" checked="checked" />
+							<span>Linha do tempo</span><br>
+						</label>
+						<label>
+							<input type="checkbox" name="logs" class="filled-in" checked="checked" />
+							<span>Logs</span><br>
+						</label>
+					</div>
+				  	<div class="col s6">
+						<label>
+							<input type="checkbox" name="borda" class="filled-in" checked="checked" />
+							<span>Borda</span><br>
+						</label>	
+						<label>
+							<input type="checkbox" name="margem" class="filled-in" checked="checked" />
+							<span>Margem</span><br>
+						</label>
+					</div>
+					<div style="margin-top: 30px" class="input-field col s6">
+						<input type="number" value="20" name="quantidade" id="quantidade" type="text" class="validate" length="10">
+						<label for="quantidade">Quantidade por linha</label>
+						<span class="character-counter" style="float: right; font-size: 12px; height: 1px;"></span>
+                    </div>
+                    <div style="margin-top: 30px" class="input-field col s6">
+						<input type="number" value="500"  name="segundos" id="segundos" type="text" class="validate" length="10">
+						<label for="segundos">Milissegundos por execução</label>
+						<span class="character-counter" style="float: right; font-size: 12px; height: 1px;"></span>
+                    </div>	
+				</div>
+            </div>
+
+        </form>
+        <div class="col s12">
+            <table id="processos">
+                <thead>
+                    <tr>
+                        <th>Processo</th>
+                        <th>Tempo de Execução</th>
+                        <th>Deadline</th>
+                        <th>Período</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                </tbody>
+
+                <tfoot>
+                </tfoot>
+                </div>
+            </table>
+
+            <div id="progresso">
+            
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i style="background: #4caf50;width: 33%;" id="iniciar" class="material-icons btn waves-effect waves-light waves-input-wrapper"><i class="material-icons">play_arrow</i></i>
+						<i class="material-icons btn waves-effect waves-light waves-input-wrapper" id="pausar" style="background: #bb6fc8;width: 33%;"><i class="material-icons">pause</i></i>
+						<i class="btn waves-effect waves-light waves-input-wrapper" id="passo" style="background: #ffffff;width: 33%;color: black;"><i class="material-icons">skip_next</i></i> <div class="row">
+				<div class="input-field col s12">
+					<i class="btn waves-effect waves-light waves-input-wrapper" id="limpar" style="background: #f44336;width: 50%;"><input style="height: 100%; width: 100%;" value="Limpar" type="submit" class="waves-button-input"></i><i class="btn waves-effect waves-light waves-input-wrapper" id="cores" style="background: #8BC34A;width: 50%;"><input style="height: 100%; width: 100%;" value="Resetar Cores" type="submit" class="waves-button-input"></i>
+				</div>
+			</div>
+                <h4>Progresso</h4><h5>Aproveitamento: <span id="aproveitamento">0%</span></h5>
+                <div id="partes">
+
+                </div><br>
+                <div id="logs">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    
+    <script type="text/javascript" src="configs.js"></script>
+    <script type="text/javascript" src="main.js"></script>
+</body>
+
+</html>
